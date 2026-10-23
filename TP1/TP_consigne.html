@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<!-- saved from url=(0191)file:///C:/Users/2615303/AppData/Local/Temp/68fe7a97-d211-4282-bd2e-4e4ecd9ffc0c_TP__Developpement_dun_outil_de_diagnostic_reseau.zip.c0c/TP__Developpement_dun_outil_de_diagnostic_reseau.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TP : Développement d'un outil de diagnostic réseau</title>
+<style>
+  :root {
+    --primary: #1a5276;
+    --accent: #2980b9;
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --border: #d5dbdb;
+    --text: #2c3e50;
+    --code-bg: #eef2f5;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--bg);
+    margin: 0;
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    padding: 2.5rem;
+  }
+
+  header {
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .subtitle {
+    color: #7f8c8d;
+    font-size: 1rem;
+    font-style: italic;
+  }
+
+  h2 {
+    color: var(--primary);
+    font-size: 1.25rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 0.6rem;
+  }
+
+  h3 {
+    color: var(--accent);
+    font-size: 1.05rem;
+    margin-top: 1.4rem;
+  }
+
+  ul, ol {
+    padding-left: 1.5rem;
+  }
+
+  li {
+    margin-bottom: 0.4rem;
+  }
+
+  code {
+    background: var(--code-bg);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 0.9em;
+    color: #c0392b;
+  }
+
+  .options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+
+  .option-card {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+  }
+
+  .option-card h4 {
+    margin-top: 0;
+    color: var(--primary);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+  }
+
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+  }
+
+  th {
+    background: var(--primary);
+    color: #fff;
+  }
+
+  tr:nth-child(even) td {
+    background: #f9fbfc;
+  }
+
+  .info-block {
+    background: #eaf4fc;
+    border-left: 4px solid var(--accent);
+    padding: 1rem 1.2rem;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+  }
+
+  .footer-note {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .options { grid-template-columns: 1fr; }
+    .container { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>TP : Développement d'un outil de diagnostic réseau</h1>
+    <p class="subtitle">Environnement au choix : Python ou PowerShell</p>
+  </header>
+
+  <section>
+    <h2>Contexte</h2>
+    <p>
+      Dans le cadre de l'unité d'enseignement <strong>Collège André-Grasset</strong>, les étudiants doivent
+      réaliser un travail pratique portant sur l'automatisation des tâches d'administration et de
+      diagnostic réseau. L'objectif est de concevoir une application en ligne de commande (CLI)
+      capable d'exécuter plusieurs tests de connectivité et de résolution.
+    </p>
+  </section>
+
+  <section>
+    <h2>Objectifs pédagogiques</h2>
+    <ul>
+      <li>Maîtriser les bibliothèques ou cmdlets liés aux réseaux.</li>
+      <li>Savoir exécuter et parser les résultats de commandes système.</li>
+      <li>Gérer les entrées utilisateur et la validation des données.</li>
+      <li>Structurer un projet en modules / fonctions réutilisables.</li>
+      <li>Produire une documentation technique et un guide d'utilisation.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Travail demandé</h2>
+    <p>
+      L'étudiant doit développer une application permettant à un utilisateur de choisir et
+      d'exécuter les tâches de diagnostic suivantes :
+    </p>
+    <ol>
+      <li><strong>Ping</strong> : envoyer des requêtes ICMP vers une adresse IP ou un nom de domaine et afficher le temps de réponse.</li>
+      <li><strong>Résolution DNS</strong> : résoudre un nom de domaine en adresse IP (et inversement, si possible).</li>
+      <li><strong>Traceroute</strong> : afficher le chemin suivi par les paquets vers une destination.</li>
+      <li><strong>Test de port (TCP)</strong> : vérifier si un port spécifique est ouvert sur une machine distante.</li>
+      <li><strong>Informations réseau locales</strong> : afficher la configuration IP de la machine (adresse IP, passerelle, DNS).</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Environnement de travail</h2>
+    <p>L'étudiant doit choisir <strong>un seul</strong> des deux environnements suivants :</p>
+
+    <div class="options">
+      <div class="option-card">
+        <h4>Option A — Python</h4>
+        <ul>
+          <li>Modules <code>subprocess</code>, <code>socket</code>, <code>os</code>, <code>argparse</code> (ou <code>typer</code> / <code>click</code>).</li>
+          <li>Gestion des erreurs et des timeouts.</li>
+          <li>Sortie colorée ou formatée dans le terminal.</li>
+        </ul>
+      </div>
+
+      <div class="option-card">
+        <h4>Option B — PowerShell</h4>
+        <ul>
+          <li>Cmdlets <code>Test-Connection</code>, <code>Resolve-DnsName</code>, <code>Test-NetConnection</code>, <code>Get-NetIPConfiguration</code>.</li>
+          <li>Structuration en fonctions et paramètres avancés.</li>
+          <li>Gestion des erreurs avec <code>try/catch</code>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Contraintes techniques</h2>
+    <ul>
+      <li>L'application doit être exécutable en ligne de commande.</li>
+      <li>Un menu interactif ou des arguments CLI doivent permettre de choisir la tâche.</li>
+      <li>Le code doit être commenté et respecter les bonnes pratiques de nommage.</li>
+      <li>Un fichier <code>README.md</code> expliquant l'installation et l'utilisation est requis.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Livrables</h2>
+    <ol>
+      <li>Le code source complet (dépôt Git ou archive ZIP).</li>
+      <li>Un rapport technique (PDF) de 5 à 10 pages décrivant l'architecture, les choix techniques et les difficultés rencontrées.</li>
+      <li>Une démonstration vidéo (5 min max) ou une session de démonstration en présentiel.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Évaluation</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Critère</th>
+          <th>Pondération</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Fonctionnalité et robustesse de l'application</td>
+          <td>40 %</td>
+        </tr>
+        <tr>
+          <td>Qualité du code et respect des consignes</td>
+          <td>30 %</td>
+        </tr>
+        <tr>
+          <td>Documentation et rapport</td>
+          <td>20 %</td>
+        </tr>
+        <tr>
+          <td>Démonstration et soutenance</td>
+          <td>10 %</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="info-block">
+    <p><strong>Durée estimée :</strong> [ex. 20 heures de travail personnel]</p>
+    <p><strong>Date de remise :</strong> [Date]</p>
+    <p><strong>Modalités de rendu :</strong> dépôt sur le portail étudiant avant [heure] le [date].</p>
+  </div>
+
+  <p class="footer-note">Document à conserver — TP [Nom de l'UE] — [Année universitaire]</p>
+
+</div>
+
+</body></html>
